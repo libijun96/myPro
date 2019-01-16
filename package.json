@@ -4,11 +4,16 @@
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
-    "test": "jest"
+    "test": "jest",
+    "android": "react-native run-android",
+    "ios": "react-native run-ios",
+    "dev": "react-devtools",
+    "reset-cache": "react-native start --reset-cache"
   },
   "dependencies": {
     "react": "16.6.3",
-    "react-native": "0.57.8"
+    "react-native": "0.57.8",
+    "react-native-splash-screen": "^3.1.1"
   },
   "devDependencies": {
     "babel-jest": "23.6.0",
