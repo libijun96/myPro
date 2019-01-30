@@ -82,33 +82,33 @@ const AppNavigation = createStackNavigator(
   }
 )
 
-const DrawerNavigator = createDrawerNavigator(
-  {
-    App: {
-      screen: AppNavigation
-    },
-    Side: {
-      screen: SideScreen
-    }
-  },
-  {
-    initialRouteName: 'App',
-    drawerWidth: 250,
-    drawerLockMode: 'unlocked',
-    contentOptions: {
-      activeTintColor: 'pink',
-      inactiveTintColor: 'gray',
-      labelStyle: {
-        fontSize: 16
-      },
-      activeLabelStyle: {
-        fontSize: 18
-      }
-    },
-    navigationOptions: {
-      gesturesEnabled: true
-    }
-  }
-)
+// const DrawerNavigator = createDrawerNavigator(
+//   {
+//     App: {
+//       screen: AppNavigation
+//     },
+//     Side: {
+//       screen: SideScreen
+//     }
+//   },
+//   {
+//     initialRouteName: 'App',
+//     drawerWidth: 250,
+//     drawerLockMode: 'unlocked',
+//     contentOptions: {
+//       activeTintColor: 'pink',
+//       inactiveTintColor: 'gray',
+//       labelStyle: {
+//         fontSize: 16
+//       },
+//       activeLabelStyle: {
+//         fontSize: 18
+//       }
+//     },
+//     navigationOptions: {
+//       gesturesEnabled: true
+//     }
+//   }
+// )
 
-export default createAppContainer(DrawerNavigator)
+export default createAppContainer(AppNavigation)

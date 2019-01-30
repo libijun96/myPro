@@ -1,3 +1,4 @@
-import { PixelRatio } from 'react-native'
+import { PixelRatio, Dimensions } from 'react-native'
 const ratio = PixelRatio.get()
-export { ratio }
+const { width, height } = Dimensions.get('window')
+export { ratio, width, height }
