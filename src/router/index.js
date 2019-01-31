@@ -42,11 +42,11 @@ const TabNavigator = createMaterialTopTabNavigator(
       labelStyle: {
         fontSize: 16
       },
-      swipeEnabled: true
     },
     initialRouteName: 'Home',
     tabBarPosition: 'bottom',
-    lazy: true
+    lazy: true,
+    swipeEnabled: true
     // animationEnabled: true
   }
 )
