@@ -7,12 +7,74 @@ import { TabView, TabBar, SceneMap } from 'react-native-tab-view'
 import Menu from '../commom/leftMenu'
 import { width } from '../utils'
 
+const FirstRoute = () => (
+  <View style={[styles.container, { backgroundColor: '#fff' }]} >
+    <Text>Home</Text>
+    <Button
+      title="goBySchool"
+      color="pink"
+      onPress={() => {
+        this.props.navigation.navigate('BySchool')
+      }}
+    />
+    <Button
+      title="open drawer"
+      color="gray"
+      onPress={() => this.drawer.openDrawer()}
+    />
+  </View>
+)
+const SecondRoute = () => (
+  <View style={[styles.container, { backgroundColor: '#673ab7' }]} />
+)
+const LazyPlaceholder = ({ route }) => (
+  <View style={styles.scene}>
+    <Text>Loading {route.title}…</Text>
+  </View>
+)
 export default class Home extends Component {
   constructor(props) {
     super(props)
     this.state = {
       drawerLockMode: 'unlocked',
-      index: 1
+      index: 0,
+      routes: [
+        { key: 'first', title: 'First' },
+        { key: 'second', title: 'Second' },
+      ],
+      loaded: ['first']
+    }
+  }
+  _handleIndexChange = index =>
+    this.setState(state => {
+      const { key } = state.routes[index];
+
+      return {
+        index,
+        // If the route isn't loaded already, add it's key to the loaded list
+        // This way routes will be loaded as we navigate to them
+        loaded: state.loaded.includes(key)
+          ? state.loaded
+          : [...state.loaded, key],
+      }
+    })
+
+  _renderScene = ({ route }) => {
+    if (
+      this.state.routes.indexOf(route) !== this.state.index &&
+      !this.state.loaded.includes(route.key)
+    ) {
+      // If the route is not focused and not loaded, render a placeholder
+      return <LazyPlaceholder route={route} />;
+    }
+
+    switch (route.key) {
+      case 'first':
+        return <FirstRoute />;
+      case 'second':
+        return <SecondRoute />;
+      default:
+        return null;
     }
   }
   render () {
@@ -26,39 +88,6 @@ export default class Home extends Component {
         />
       </View>
     )
-    const initialLayout = {
-      height: 0,
-      width: width
-    }
-    _renderTabBar = props => (
-      <TabBar
-        {...props}
-        scrollEnabled
-        indicatorStyle={styles.indicator}
-        style={styles.tabbar}
-        tabStyle={styles.tab}
-        labelStyle={styles.label}
-      />
-    )
-    _renderScene = ()=>{
-    }
-    _handleIndexChange (index){
-      this.setState({
-        index
-      })
-    }
-    renderTab = ()=>{
-      return (
-        <TabView
-        style={[styles.container, this.props.style]}
-        navigationState={this.state}
-        renderScene={this._renderScene}
-        renderTabBar={this._renderTabBar}
-        onIndexChange={this._handleIndexChange}
-        initialLayout={initialLayout}
-      />
-      )
-    }
     return (
       <DrawerLayout
         // onDrawerSlide={e =>
@@ -76,21 +105,13 @@ export default class Home extends Component {
         statusBarBackgroundColor="red"
         renderNavigationView={() => navigationView}
       >
-        <View style={styles.container}>
-          <Text>Home</Text>
-          <Button
-            title="goBySchool"
-            color="pink"
-            onPress={() => {
-              this.props.navigation.navigate('BySchool')
-            }}
-          />
-          <Button
-            title="open drawer"
-            color="gray"
-            onPress={() => this.drawer.openDrawer()}
-          />
-        </View>
+        {/* tab的滑动影响侧边栏的滑动 */}
+        <TabView
+          navigationState={this.state}
+          renderScene={this._renderScene}
+          onIndexChange={this._handleIndexChange}
+          initialLayout={{ width }}
+        />
       </DrawerLayout>
     )
   }
@@ -106,32 +127,5 @@ const styles = StyleSheet.create({
     fontSize: 20,
     textAlign: 'center',
     margin: 10,
-  },
-  inputField: {
-    backgroundColor: 'pink',
-    height: 40,
-  },
-  split: {
-    flexDirection: 'row',
-  },
-  spacedLeft: {
-    paddingLeft: 10,
-  },
-  drawerLock: {
-    height: 200,
-    paddingTop: 50,
-  },
-  tabbar: {
-    backgroundColor: '#3f51b5',
-  },
-  tab: {
-    width: 120,
-  },
-  indicator: {
-    backgroundColor: '#ffeb3b',
-  },
-  label: {
-    color: '#fff',
-    fontWeight: '400',
   }
 })

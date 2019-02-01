@@ -47,7 +47,7 @@ const TabNavigator = createMaterialTopTabNavigator(
     tabBarPosition: 'bottom',
     lazy: true,
     // 底部导航若开启滑动，会与滑动侧栏冲突！！
-    swipeEnabled: false
+    swipeEnabled: true
     // animationEnabled: true
   }
 )
