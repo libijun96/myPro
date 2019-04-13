@@ -7,7 +7,7 @@ export default class BySchool extends Component {
   }
   render(){
     return (
-      <View><Text>BySchool</Text></View>
+      <View><Text>BySchool哈哈哈</Text></View>
     )
   }
 }
